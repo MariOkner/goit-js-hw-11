@@ -14,18 +14,12 @@ export default class GalleryApiService {
 
     async fetchHits() {
         const url = `${BASE_URL}?key=${KEY}&q=${this.searchQueryImg}&${parametrs}&per_page=${this.perPage}&page=${this.page}`;
-
         const response = await axios.get(url);
             
         if (response.status !== 200) {
             throw new Error(response.status);
         }
-        
-        console.log('hits:', response.data.hits);
-        console.log('page:', this.page);
-        console.log('perPage:', this.perPage);
-        console.log('totalHits:', response.data.totalHits);
-        
+               
         if (response.data.totalHits === 0) {
             throw new Error(response.status);
         }

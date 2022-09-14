@@ -34,7 +34,6 @@ function onFormSubmit(evt) {
   loadMoreButtonCls.show();
   galleryApiService.resetPage();
   fetchGalleryHits();
-// ____________________________________________ 
 }
 
 function onLoadMoreClick() {
@@ -64,7 +63,7 @@ function fetchGalleryHits() {
       onSearchError();
     });
 }
-// __________________________________________________________
+
 function appendHitsMarkup(hits) {
   const markup = hits
     .map(
