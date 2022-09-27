@@ -41,27 +41,27 @@ function onLoadMoreClick() {
   fetchGalleryHits();
 }
 
-function fetchGalleryHits() {
-  loadMoreButtonCls.disable(); 
-  galleryApiService.fetchHits()
-    .then(hits => {
-      appendHitsMarkup(hits);
+async function fetchGalleryHits() {
+  loadMoreButtonCls.disable();
 
-      lightBox = new SimpleLightbox('.gallery a');
-      lightBox.refresh(); 
+  try {
+    const hits = await galleryApiService.fetchHits();
+    appendHitsMarkup(hits);
 
-      if (galleryApiService.page === galleryApiService.totalPages) {
-        Notify.success(
-        `We're sorry, but you've reached the end of search results.`
-        );
-        loadMoreButtonCls.hide();
-      } else {
-        loadMoreButtonCls.enable();
-      }
-    })
-    .catch(error => {
-      onSearchError();
-    });
+    lightBox = new SimpleLightbox('.gallery a');
+    lightBox.refresh(); 
+
+    if (galleryApiService.page === galleryApiService.totalPages) {
+      Notify.success(
+      `We're sorry, but you've reached the end of search results.`
+      );
+      loadMoreButtonCls.hide();
+    } else {
+      loadMoreButtonCls.enable();
+    }
+  } catch (error) {
+    onSearchError();
+  };
 }
 
 function appendHitsMarkup(hits) {
